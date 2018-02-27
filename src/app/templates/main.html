@@ -1,0 +1,61 @@
+<header class="app-header navbar fixed-top">
+    <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">&#9776;</button>
+    <a class="navbar-brand" href="#">
+        <span style="padding-left: 100px; font-weight: bold;">  KOMONAS</span>
+    </a>
+    <ul class="nav navbar-nav ml-auto" *ngIf="identity" style="margin-right: 50px;">
+      
+      <li class="nav-item">
+        <a class="btn btn-sm btn-danger" href="#" (click)="logout()" role="button" aria-haspopup="true" aria-expanded="false">
+           <i class="fa fa-power-off"></i> Logout
+        </a>
+      </li>
+    </ul>
+  </header>
+  
+  <div class="app-body">
+      <div class="sidebar">
+          <nav class="sidebar-nav">
+              <ul class="nav">
+                  <li class="nav-item">
+                      <a class="nav-link" *ngIf="identity" routerLinkActive="active">
+                          <i class="icon-user"></i> {{identity.name}}
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLinkActive="active" [routerLink]="['dashboard']">
+                          <i class="icon-speedometer"></i> Dashboard
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLinkActive="active" [routerLink]="['provinsi']">
+                          <i class="icon-globe"></i> Provinsi
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLinkActive="active" [routerLink]="['kabupaten']">
+                          <i class="icon-pin"></i> Kabupaten
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['komoditas']">
+                        <i class="icon-folder"></i> Komoditas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['data']">
+                        <i class="icon-book-open"></i> Data
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['pengguna']">
+                        <i class="icon-people"></i> Pengguna
+                    </a>
+                </li>
+              </ul>
+          </nav>
+      </div>
+      <main class="main" style="width: 100%; height: 100%;">
+          <router-outlet style="overflow-y: scroll;"></router-outlet>
+      </main>
+  </div>

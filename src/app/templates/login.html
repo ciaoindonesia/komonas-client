@@ -1,0 +1,28 @@
+<div class="app flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card-group mb-0">
+            <div class="card p-2">
+              <form class="card-block" (submit)="login()">
+                <h5 style="padding-bottom: 15px;">Silahkan Masukan Username dan Password Anda</h5>
+                <div class="input-group mb-1">
+                  <span class="input-group-addon"><i class="icon-user"></i></span>
+                  <input type="text" class="form-control" name="username" [(ngModel)]="user.userName" placeholder="Username">
+                </div>
+                <div class="input-group mb-2">
+                  <span class="input-group-addon"><i class="icon-lock"></i></span>
+                  <input type="password" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Password">
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <button style="cursor: pointer;" type="submit" class="btn btn-primary px-2">Login</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

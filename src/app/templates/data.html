@@ -1,0 +1,120 @@
+<div class="container-fluid" style="margin-top: 5px;">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12" *ngIf="viewType === 'list'">
+                    <div class="card">
+                        <div class="card-header bg-secondary">
+                            <i class="icon-book-open"></i> <span>Daftar Data</span>
+                        </div>
+                        <div class="card-block">
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input name="province" placeholder="Kabupaten" ngui-auto-complete max-num-list="10" [list-formatter]="listFormatter" [(ngModel)]="query.criteria.kabupaten" 
+                                                [source]="loadKabupatens.bind(this)" value-property-name="id" display-property-name="name" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input name="province" placeholder="Komoditas" ngui-auto-complete max-num-list="10" [list-formatter]="listFormatter" [(ngModel)]="query.criteria.comodity" 
+                                                [source]="loadComodities.bind(this)" value-property-name="id" display-property-name="name" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <select class="form-control" name="status" [(ngModel)]="query.criteria.status">
+                                                <option value="">Status</option>
+                                                <option value="normal">Normal</option>
+                                                <option value="surplus">Surplus</option>
+                                                <option value="defisit">Defisit</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-secondary" style="cursor: pointer;" (click)="add()"><i class="fa fa-plus"></i> Tambah</button>
+                                <button type="button" class="btn btn-sm btn-secondary" style="cursor: pointer;" (click)="filter()"><i class="fa fa-search"></i> Cari</button>
+                            </form>
+                        </div>
+                        <div class="card-block">
+                            <h5 style="text-align: center;" *ngIf="entities && entities.length === 0">Belum Ada Data</h5>
+                            <div class="table-responsive" *ngIf="entities && entities.length > 0">
+                                <table class="table table-bordered table-condensed table-striped table-condensed table-sm">
+                                    <thead class="thead">
+                                        <tr>
+                                            <th style="text-align: center;">Kabupaten</th>
+                                            <th style="text-align: center;">Komoditas</th>
+                                            <th style="text-align: center;">Kuantitas</th>
+                                            <th style="text-align: center;">Status</th>
+                                            <th style="text-align: center;">Tanggal</th>
+                                            <th style="text-align: center; width: 20%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let entity of entities | paginate: {itemsPerPage: paging.max, currentPage: paging.page, totalItems: paging.total }" [hidden]="progress?.percentage < 100">
+                                            <td>{{entity.kabupaten.name}}</td>
+                                            <td>{{entity.comodity.name}}</td>
+                                            <td style="text-align: right;">{{entity.quantity}}</td>
+                                            <td>{{entity.status === 'normal' ? 'Normal' : entity.status === 'surplus' ? 'Surplus' : 'Defisit'}}</td>
+                                            <td>{{entity.date | date: 'dd/MM/yyyy'}}</td>
+                                            <td style="text-align: center;">
+                                                <button class="btn btn-sm btn-primary" style="cursor: pointer;" (click)="edit(entity)">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </button>
+                                                <button  class="btn btn-sm btn-danger" style="cursor: pointer;" (click)="delete(entity.id)">
+                                                    <i class="fa fa-trash"></i> Hapus
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <pagination-controls style="float: right;" (pageChange)="page($event)"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12" *ngIf="viewType === 'form'">
+                    <div class="card">
+                        <div class="card-block">
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="kabupaten">Kabupaten*</label>
+                                            <input name="kabupaten"ngui-auto-complete max-num-list="10" [list-formatter]="listFormatter" [(ngModel)]="entity.kabupaten" 
+                                                [source]="loadKabupatens.bind(this)" value-property-name="id" display-property-name="name" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="comodity">Komoditas*</label>
+                                            <input name="comodity" ngui-auto-complete max-num-list="10" [list-formatter]="listFormatter" [(ngModel)]="entity.comodity" 
+                                                [source]="loadComodities.bind(this)" value-property-name="id" display-property-name="name" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="qty">Kuantitas (Ton)*</label>
+                                            <input type="number" class="form-control" name="qty" [(ngModel)]="entity.quantity" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="status">Status*</label>
+                                            <select class="form-control" name="status" [(ngModel)]="entity.status">
+                                                <option value="normal">Normal</option>
+                                                <option value="surplus">Surplus</option>
+                                                <option value="defisit">Defisit</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-primary" style="cursor: pointer;" (click)="backToList()"><i class="fa fa-arrow-left"></i> Kembali</button>
+                                <button type="button" class="btn btn-sm btn-success" style="cursor: pointer;" (click)="save()"><i class="fa fa-save"></i> Simpan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
