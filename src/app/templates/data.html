@@ -21,6 +21,16 @@
                                                 [source]="loadComodities.bind(this)" value-property-name="id" display-property-name="name" type="text" class="form-control" />
                                         </div>
                                     </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Dari Tanggal" name="from" [(ngModel)]="query.criteria.from" format="dd/MM/yyyy" #fr="bsDatepicker" bsDatepicker>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Sampai Tanggal" name="to" [(ngModel)]="query.criteria.to" format="dd/MM/yyyy" #to="bsDatepicker" bsDatepicker>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <select class="form-control" name="status" [(ngModel)]="query.criteria.status">
@@ -94,15 +104,21 @@
                                                 [source]="loadComodities.bind(this)" value-property-name="id" display-property-name="name" type="text" class="form-control" />
                                         </div>
                                     </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="date">Tanggal*</label>
+                                            <input class="form-control" name="date" [(ngModel)]="entity.date" format="dd/MM/yyyy" #drp="bsDatepicker" bsDatepicker>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="qty">Supply (Ton)*</label>
+                                            <label for="supply">Supply (Ton)*</label>
                                             <input type="number" class="form-control" name="supply" [(ngModel)]="entity.supply" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="qty">Demand (Ton)*</label>
+                                            <label for="demand">Demand (Ton)*</label>
                                             <input type="number" class="form-control" name="demand" [(ngModel)]="entity.demand" />
                                         </div>
                                     </div>

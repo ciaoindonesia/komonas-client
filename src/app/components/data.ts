@@ -36,11 +36,12 @@ export class DataComponent extends BaseComponent implements OnInit {
 
     edit(entity): void {
       this.entity = entity;
+      this.entity.date = new Date(this.entity.date);
       this.viewType = 'form';
     }
 
     save(): void {
-        if (!this.entity.kabupaten || !this.entity.comodity || isNaN(this.entity.supply) || isNaN(this.entity.demand) || !this.entity.status) {
+        if (!this.entity.kabupaten || !this.entity.comodity || isNaN(this.entity.supply) || isNaN(this.entity.demand)) {
             this.toastr.info('Silahkan isi data yang bertanda (*)');
             return;
         }
@@ -54,6 +55,7 @@ export class DataComponent extends BaseComponent implements OnInit {
         else
             this.entity.status = 'normal';
 
+        console.log(this.entity.date);
         this.service.save(this.entity, this.serviceName, this.progressListener.bind(this)).subscribe(
           result => {
              this.toastr.success('Data berhasil disimpan');
