@@ -44,7 +44,8 @@
                                         <tr>
                                             <th style="text-align: center;">Kabupaten</th>
                                             <th style="text-align: center;">Komoditas</th>
-                                            <th style="text-align: center;">Kuantitas</th>
+                                            <th style="text-align: center;">Supply</th>
+                                            <th style="text-align: center;">Demand</th>
                                             <th style="text-align: center;">Status</th>
                                             <th style="text-align: center;">Tanggal</th>
                                             <th style="text-align: center; width: 20%">Aksi</th>
@@ -54,7 +55,8 @@
                                         <tr *ngFor="let entity of entities | paginate: {itemsPerPage: paging.max, currentPage: paging.page, totalItems: paging.total }" [hidden]="progress?.percentage < 100">
                                             <td>{{entity.kabupaten.name}}</td>
                                             <td>{{entity.comodity.name}}</td>
-                                            <td style="text-align: right;">{{entity.quantity}}</td>
+                                            <td style="text-align: right;">{{entity.supply}}</td>
+                                            <td style="text-align: right;">{{entity.demand}}</td>
                                             <td>{{entity.status === 'normal' ? 'Normal' : entity.status === 'surplus' ? 'Surplus' : 'Defisit'}}</td>
                                             <td>{{entity.date | date: 'dd/MM/yyyy'}}</td>
                                             <td style="text-align: center;">
@@ -92,20 +94,16 @@
                                                 [source]="loadComodities.bind(this)" value-property-name="id" display-property-name="name" type="text" class="form-control" />
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="qty">Kuantitas (Ton)*</label>
-                                            <input type="number" class="form-control" name="qty" [(ngModel)]="entity.quantity" />
+                                            <label for="qty">Supply (Ton)*</label>
+                                            <input type="number" class="form-control" name="supply" [(ngModel)]="entity.supply" />
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="status">Status*</label>
-                                            <select class="form-control" name="status" [(ngModel)]="entity.status">
-                                                <option value="normal">Normal</option>
-                                                <option value="surplus">Surplus</option>
-                                                <option value="defisit">Defisit</option>
-                                            </select>
+                                            <label for="qty">Demand (Ton)*</label>
+                                            <input type="number" class="form-control" name="demand" [(ngModel)]="entity.demand" />
                                         </div>
                                     </div>
                                 </div>

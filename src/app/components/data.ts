@@ -40,12 +40,19 @@ export class DataComponent extends BaseComponent implements OnInit {
     }
 
     save(): void {
-        if (!this.entity.kabupaten || !this.entity.comodity || isNaN(this.entity.quantity) || !this.entity.status) {
+        if (!this.entity.kabupaten || !this.entity.comodity || isNaN(this.entity.supply) || isNaN(this.entity.demand) || !this.entity.status) {
             this.toastr.info('Silahkan isi data yang bertanda (*)');
             return;
         }
 
         this.progress.percentage = 0;
+
+        if (parseInt(this.entity.supply) > parseInt(this.entity.demand))
+            this.entity.status = 'surplus';
+        else if (parseInt(this.entity.supply) < parseInt(this.entity.demand))
+            this.entity.status = 'defisit';
+        else
+            this.entity.status = 'normal';
 
         this.service.save(this.entity, this.serviceName, this.progressListener.bind(this)).subscribe(
           result => {
