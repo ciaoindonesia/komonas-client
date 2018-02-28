@@ -10,13 +10,11 @@ import { ToastsManager } from 'ng2-toastr';
   templateUrl: '../templates/dashboard.html'
 })
 export class DashboardComponent extends BaseComponent implements OnInit {
-    totalKabupaten: number;
-    totalProvince: number;
-    totalComodity: number;
-
+    supplyDemands: any[];
     provinces: any[];
-    kabupatens: any[];
-    comodities: any[];
+    selectedProvinceId: any;
+    selectedMonth: any;
+    selectedYear: any;
 
     constructor(public toastr: ToastsManager, 
         protected service: Service, 
@@ -26,35 +24,45 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         }
 
     ngOnInit(): void {
-       this.totalComodity = 0;
-       this.totalKabupaten = 0;
-       this.totalProvince = 0;
+       this.supplyDemands = [];
+       this.selectedProvinceId = 'national';
+       this.selectedMonth = new Date().getMonth() + 1;
+       this.selectedYear = new Date().getFullYear();
 
-       this.fetchData();
+       this.fetchProvinces();
+       this.fetchDataByProvince();
+    }
+
+    fetchProvinces(): void {
+      this.service.getAll({}, 'province', null).subscribe(
+         result => {
+           this.provinces = result;
+         }
+      )
     }
 
     fetchData(): void {
-       this.service.fetch({}, 'kabupaten', 'getAll', null).subscribe(
+       this.service.fetch({month: this.selectedMonth, year: this.selectedYear}, 'master', 'getSupplyDemandNational', null).subscribe(
            result => {
-              this.totalKabupaten = result.length;
-              this.kabupatens = result;
+              this.supplyDemands = result;
            },
            error => {}
        );
-       this.service.fetch({}, 'province', 'getAll', null).subscribe(
-            result => {
-              this.totalProvince = result.length;
-              this.provinces = result;
-            },
-            error => {}
-       );
+    }
 
-       this.service.fetch({}, 'comodity', 'getAll', null).subscribe(
-            result => {
-              this.totalComodity = result.length;
-              this.comodities = result;
-            },
-            error => {}
-       );
+    fetchDataByProvince(): void {
+       if (this.selectedProvinceId === 'national') {
+          this.fetchData();
+          return;
+       }
+
+       this.service.fetch({provinceId: this.selectedProvinceId, month: this.selectedMonth, year: this.selectedYear}, 'master', 'getSupplyDemandByProvince', null).subscribe(
+          result => {
+            this.supplyDemands = result;
+          },
+          error => {
+
+          }
+       )
     }
 }
