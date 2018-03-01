@@ -11,6 +11,7 @@
              </div>
              <div class="col-lg-12" style="margin-top: 5px;">
                  <select class="form-control form-control-sm" name="month" [(ngModel)]="selectedMonth">
+						<option value="tahun">TAHUN</option>
                         <option value="1">JANUARI</option>
                         <option value="2">FEBRUARI</option>
                         <option value="3">MARET</option>
@@ -28,22 +29,26 @@
              <div class="col-lg-12" style="margin-top: 5px;">
                 <input type="number" class="form-control" name="year" [(ngModel)]="selectedYear">
             </div>
-            <div class="col-lg-12" style="margin-top: 5px;">
+            <div class="col-lg-12" style="margin-top: 10px;margin-bottom: 15px">
                 <button class="btn btn-sm btn-primary" (click)="fetchDataByProvince()">
                     <i class="fa fa-search"></i> Cari
                 </button>
             </div>
          </div>
-         <div class="row" style="margin-top: 25px;">
+         <div class="row" >
             <div class="col-sm-6 col-lg-3" *ngFor="let supplyDemand of supplyDemands">
-                <div class="card card-inverse card-primary">
+                <div style="height: 200px;" [ngClass]="{'card card-inverse card-success': (supplyDemand.total_supply-supplyDemand.total_demand) >= 0, 
+				'card card-inverse card-danger':(supplyDemand.total_supply - supplyDemand.total_demand) < 0}">
                     <div class="card-block pb-0">
                         <h4 class="mb-0">{{supplyDemand.name}}</h4>
                         <hr>
                         <p>
                             Supply {{supplyDemand.total_supply}} ton <br>
                             Demand {{supplyDemand.total_demand}} ton <br>
-                            {{supplyDemand.total_supply < supplyDemand.total_demand ? 'Defisit' : 'Surplus'}} {{supplyDemand.total_supply - supplyDemand.total_demand}} Ton
+						</p>
+						<hr>
+						<p>
+                            <font size="4">{{(supplyDemand.total_supply - supplyDemand.total_demand) == 0 ? 'Normal' : ((supplyDemand.total_supply - supplyDemand.total_demand) < 0 ? 'Defisit' : 'Surplus')}} {{supplyDemand.total_supply - supplyDemand.total_demand}} Ton</font>
                         </p>
                     </div>
                 </div>

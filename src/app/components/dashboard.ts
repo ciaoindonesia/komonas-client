@@ -42,12 +42,22 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     }
 
     fetchData(): void {
-       this.service.fetch({month: this.selectedMonth, year: this.selectedYear}, 'master', 'getSupplyDemandNational', null).subscribe(
-           result => {
-              this.supplyDemands = result;
-           },
-           error => {}
-       );
+		if (this.selectedMonth === 'tahun'){
+			this.service.fetch({year: this.selectedYear}, 'master', 'getSupplyDemandNationalByYear', null).subscribe(
+				result => {
+					this.supplyDemands = result;
+				},
+				error => {}
+			);
+			return;
+		}
+		
+		this.service.fetch({month: this.selectedMonth, year: this.selectedYear}, 'master', 'getSupplyDemandNational', null).subscribe(
+		   result => {
+			  this.supplyDemands = result;
+		   },
+		   error => {}
+		);
     }
 
     fetchDataByProvince(): void {
@@ -55,6 +65,16 @@ export class DashboardComponent extends BaseComponent implements OnInit {
           this.fetchData();
           return;
        }
+	   
+	   if (this.selectedMonth === 'tahun'){
+			this.service.fetch({provinceId: this.selectedProvinceId, year: this.selectedYear}, 'master', 'getSupplyDemandByProvinceByYear', null).subscribe(
+				result => {
+					this.supplyDemands = result;
+				},
+				error => {}
+			);
+			return;
+		}
 
        this.service.fetch({provinceId: this.selectedProvinceId, month: this.selectedMonth, year: this.selectedYear}, 'master', 'getSupplyDemandByProvince', null).subscribe(
           result => {
