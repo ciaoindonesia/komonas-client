@@ -53,11 +53,11 @@
                                     <thead class="thead">
                                         <tr>
                                             <th style="text-align: center;">Kabupaten</th>
-                                            <th style="text-align: center;">Komoditas</th>
-                                            <th style="text-align: center;">Supply</th>
-                                            <th style="text-align: center;">Demand</th>
-                                            <th style="text-align: center;">Status</th>
-                                            <th style="text-align: center;">Tanggal</th>
+                                            <th style="text-align: center; width: 20%">Komoditas</th>
+                                            <th style="text-align: center; width: 10%">Supply</th>
+                                            <th style="text-align: center; width: 10%">Demand</th>
+                                            <th style="text-align: center; width: 10%">Status</th>
+                                            <th style="text-align: center; width: 10%">Tanggal</th>
                                             <th style="text-align: center; width: 20%">Aksi</th>
                                         </tr>
                                     </thead>
@@ -68,7 +68,7 @@
                                             <td style="text-align: right;">{{entity.supply}}</td>
                                             <td style="text-align: right;">{{entity.demand}}</td>
                                             <td>{{entity.status === 'normal' ? 'Normal' : entity.status === 'surplus' ? 'Surplus' : 'Defisit'}}</td>
-                                            <td>{{entity.date | date: 'dd/MM/yyyy'}}</td>
+                                            <td style="text-align: center;">{{entity.date | date: 'dd/MM/yyyy'}}</td>
                                             <td style="text-align: center;">
                                                 <button class="btn btn-sm btn-primary" style="cursor: pointer;" (click)="edit(entity)">
                                                     <i class="fa fa-edit"></i> Edit

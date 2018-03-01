@@ -36,22 +36,16 @@
             </div>
          </div>
          <div class="row" >
-            <div class="col-sm-6 col-lg-3" *ngFor="let supplyDemand of supplyDemands">
-                <div style="height: 200px;" [ngClass]="{'card card-inverse card-success': (supplyDemand.total_supply-supplyDemand.total_demand) >= 0, 
-				'card card-inverse card-danger':(supplyDemand.total_supply - supplyDemand.total_demand) < 0}">
-                    <div class="card-block pb-0">
-                        <h4 class="mb-0">{{supplyDemand.name}}</h4>
-                        <hr>
-                        <p>
-                            Supply {{supplyDemand.total_supply}} ton <br>
-                            Demand {{supplyDemand.total_demand}} ton <br>
-						</p>
-						<hr>
-						<p>
-                            <font size="4">{{(supplyDemand.total_supply - supplyDemand.total_demand) == 0 ? 'Normal' : ((supplyDemand.total_supply - supplyDemand.total_demand) < 0 ? 'Defisit' : 'Surplus')}} {{supplyDemand.total_supply - supplyDemand.total_demand}} Ton</font>
-                        </p>
-                    </div>
-                </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let supplyDemand of supplyDemands">
+                <div class="w3-card w3-hover-shadow" style="margin-bottom: 15px">
+				  <img src="{{supplyDemand.image_path}}" alt="Avatar" style="width:100%">
+				  <div [ngClass]="(supplyDemand.total_supply-supplyDemand.total_demand) >= 0 ? 'w3-container w3-sand w3-text-dark-grey' : 'w3-container w3-deep-orange w3-text-light-grey'">
+					<h4><font face="arial">{{supplyDemand.name}}</font></h4> 
+					<p>Supply {{supplyDemand.total_supply}} ton<br>
+					   Demand {{supplyDemand.total_demand}} ton</p><hr>
+					   <p class="w3-large">{{(supplyDemand.total_supply - supplyDemand.total_demand) == 0 ? 'Normal' : ((supplyDemand.total_supply - supplyDemand.total_demand) < 0 ? 'Defisit' : 'Surplus')}} {{supplyDemand.total_supply - supplyDemand.total_demand}} Ton</p>
+				  </div>
+				</div>
             </div>
          </div>
      </div>
