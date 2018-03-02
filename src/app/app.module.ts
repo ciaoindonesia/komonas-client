@@ -25,6 +25,8 @@ import { ComodityComponent } from './components/comodity';
 import { UserComponent } from './components/user';
 import { DataComponent } from './components/data';
 
+import { Ng2OrderModule } from 'ng2-order-pipe';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { DataComponent } from './components/data';
   ],
   imports: [
     BrowserModule,
+	Ng2OrderModule,
     BrowserAnimationsModule,
     HttpModule,
     ProgressHttpModule,
