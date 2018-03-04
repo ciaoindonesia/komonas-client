@@ -1,0 +1,80 @@
+<div class="container-fluid" style="margin-top: 5px;">
+     <div class="animated fadeIn">
+         <div class="row">
+		 <div class="col-lg-12">
+			<div class="card">
+			<div class="card-header bg-secondary">
+                        <i class="icon-chart"></i> <span>Analisis</span>
+                    </div>
+			<div class="card-block">		
+             <div class="col-lg-12">
+                 <select class="form-control form-control-sm" name="province" id="selectProvince" [(ngModel)]="selectedProvinceId">
+                     <option value="national">NASIONAL</option>
+                     <option *ngFor="let province of provinces | orderBy: 'name'" value="{{province.id}}">
+                         {{province.name}}
+                     </option>
+                 </select>
+             </div>
+			 <div class="col-lg-12" style="margin-top: 5px;">
+                 <select class="form-control form-control-sm" name="timeType" [(ngModel)]="selectedTimeType">
+					<option value="tahun">Skala Tahun</option>
+					<option value="bulan">Skala Bulan</option>
+                 </select>
+             </div>
+			 <div class="col-lg-12" style="margin-top: 5px;">
+                 <select class="form-control form-control-sm" name="comodity" [(ngModel)]="selectedComodityId">
+					<option value="" disabled selected>Pilih Komoditas</option>
+					<option *ngFor="let comodity of comodities | orderBy: 'name'" value="{{comodity.id}}">
+                         {{comodity.name}}
+                     </option>
+                 </select>
+             </div>
+			 
+			 <div class="col-lg-12" style="margin-top: 10px;margin-bottom: 15px">
+                <button class="btn btn-sm btn-primary" [disabled]="selectedComodityId === ''" (click)="fetchData()">
+                    <i class="fa fa-search"></i> Cari
+                </button>
+            </div>
+			</div>
+			
+			<div class="card-block" *ngIf="refreshChart">
+			<div class="col-md-12">
+				<div style="display: block;" >
+					<canvas id="myChart" baseChart width="300" height="100"
+								[datasets]="lineChartData"
+								[labels]="lineChartLabels"
+								[options]="lineChartOptions"
+								[colors]="lineChartColors"
+								[legend]="lineChartLegend"
+								[chartType]="lineChartType"
+								(chartHover)="chartHovered($event)"
+								(chartClick)="chartClicked($event)" ></canvas>
+				</div>
+			</div>
+			<div class="col-md-12" style="margin-top: 30px" >
+			
+				<table class="table table-responsive table-condensed" align="center">
+					<thead class="thead">
+						<tr>
+							<th style="text-align: center;">Waktu</th>
+							<th style="text-align: center;">Supply</th>
+							<th style="text-align: center;">Demand</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let supplyDemand of supplyDemands">
+							<td>{{supplyDemand.month ? monthNames[supplyDemand.month] : supplyDemand.year}}</td>
+							<td>{{supplyDemand.total_supply}}</td>
+							<td>{{supplyDemand.total_demand}}</td>
+						</tr>
+					</tbody>
+					
+				</table>
+			
+			</div>
+			</div>
+			</div>
+			</div>
+         </div>
+     </div> 
+</div>

@@ -19,6 +19,7 @@ import { LoginComponent } from './components/login';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MainComponent } from './components/main';
 import { DashboardComponent } from './components/dashboard';
+import { AnalyticsComponent } from './components/analytics';
 import { ProvinceComponent } from './components/province';
 import { KabupatenComponent } from './components/kabupaten';
 import { ComodityComponent } from './components/comodity';
@@ -26,6 +27,7 @@ import { UserComponent } from './components/user';
 import { DataComponent } from './components/data';
 
 import { Ng2OrderModule } from 'ng2-order-pipe';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -34,6 +36,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     LoginComponent,
     MainComponent,
     DashboardComponent,
+	AnalyticsComponent,
     ProvinceComponent,
     KabupatenComponent,
     ComodityComponent,
@@ -41,6 +44,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     UserComponent
   ],
   imports: [
+	ChartsModule,
     BrowserModule,
 	Ng2OrderModule,
     BrowserAnimationsModule,
@@ -56,6 +60,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
         { path: 'login', component: LoginComponent },
         { path: 'main', component: MainComponent, children: [
           { path: 'dashboard', component: DashboardComponent },
+		  { path: 'analisa', component: AnalyticsComponent },
           { path: 'provinsi', component: ProvinceComponent },
           { path: 'kabupaten', component: KabupatenComponent },
           { path: 'komoditas', component: ComodityComponent },
